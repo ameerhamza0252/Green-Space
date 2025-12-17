@@ -32,9 +32,9 @@ export const DonatePage: React.FC = () => {
 
   if (step === 'success') {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center p-4 animate-fade-in">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center border-t-4 border-green-500">
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="min-h-[60vh] flex items-center justify-center p-4 animate-slide-up">
+        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center border-t-4 border-green-500 transform transition-all hover:scale-105">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
             <CheckCircle className="text-green-600" size={40} />
           </div>
           <h2 className="text-3xl font-serif font-bold text-gray-900 mb-4">Thank You!</h2>
@@ -44,7 +44,7 @@ export const DonatePage: React.FC = () => {
           </p>
           <button 
             onClick={() => setStep('amount')}
-            className="w-full bg-stone-100 hover:bg-stone-200 text-stone-800 font-semibold py-3 px-6 rounded-lg transition-colors"
+            className="w-full bg-stone-100 hover:bg-stone-200 text-stone-800 font-semibold py-3 px-6 rounded-lg transition-colors hover:bg-stone-300"
           >
             Donate Again
           </button>
@@ -56,28 +56,36 @@ export const DonatePage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-16 animate-fade-in">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-serif font-bold text-stone-900 mb-4">Support Our Cause</h2>
-        <p className="text-lg text-stone-600 max-w-2xl mx-auto">
+        <h2 className="text-4xl font-serif font-bold text-stone-900 mb-4 animate-slide-up">Support Our Cause</h2>
+        <p className="text-lg text-stone-600 max-w-2xl mx-auto animate-slide-up delay-100">
           We rely entirely on donations to purchase equipment, insurance, and plants. 100% of your donation goes directly to operations.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Donation Form */}
-        <div className="lg:col-span-2">
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-stone-100">
+        <div className="lg:col-span-2 animate-slide-up delay-200">
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-stone-100 transition-shadow hover:shadow-2xl">
             <div className="bg-green-50 p-4 border-b border-green-100 flex justify-center gap-4">
                <button 
                 onClick={() => setIsMonthly(false)}
-                className={`flex items-center gap-2 px-6 py-2 rounded-full text-sm font-semibold transition-all ${!isMonthly ? 'bg-green-600 text-white shadow-md' : 'text-green-800 hover:bg-green-100'}`}
+                className={`flex items-center gap-2 px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  !isMonthly 
+                    ? 'bg-green-600 text-white shadow-md transform scale-105' 
+                    : 'text-green-800 hover:bg-green-100 hover:scale-105'
+                }`}
                >
-                 <Heart size={16} /> One-time
+                 <Heart size={16} className={!isMonthly ? "animate-pulse" : ""} /> One-time
                </button>
                <button 
                 onClick={() => setIsMonthly(true)}
-                className={`flex items-center gap-2 px-6 py-2 rounded-full text-sm font-semibold transition-all ${isMonthly ? 'bg-green-600 text-white shadow-md' : 'text-green-800 hover:bg-green-100'}`}
+                className={`flex items-center gap-2 px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  isMonthly 
+                    ? 'bg-green-600 text-white shadow-md transform scale-105' 
+                    : 'text-green-800 hover:bg-green-100 hover:scale-105'
+                }`}
                >
-                 <Calendar size={16} /> Monthly
+                 <Calendar size={16} className={isMonthly ? "animate-pulse" : ""} /> Monthly
                </button>
             </div>
 
@@ -90,9 +98,9 @@ export const DonatePage: React.FC = () => {
                       <button
                         key={opt.amount}
                         onClick={() => { setAmount(opt.amount); setCustomAmount(''); }}
-                        className={`p-4 rounded-xl border-2 text-left transition-all ${
+                        className={`p-4 rounded-xl border-2 text-left transition-all duration-300 transform hover:scale-105 hover:shadow-md ${
                           amount === opt.amount && !customAmount
-                            ? 'border-green-500 bg-green-50'
+                            ? 'border-green-500 bg-green-50 scale-105 shadow-md'
                             : 'border-stone-200 hover:border-green-300'
                         }`}
                       >
@@ -104,14 +112,14 @@ export const DonatePage: React.FC = () => {
 
                   <div className="mb-8">
                     <label className="block text-sm font-medium text-stone-700 mb-2">Or enter custom amount</label>
-                    <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500 text-lg">£</span>
+                    <div className="relative group">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500 text-lg transition-colors group-focus-within:text-green-600">£</span>
                       <input
                         type="number"
                         min="1"
                         value={customAmount}
                         onChange={handleCustomAmount}
-                        className="w-full pl-10 pr-4 py-3 rounded-lg border-2 border-stone-200 focus:border-green-500 focus:ring-0 text-lg outline-none"
+                        className="w-full pl-10 pr-4 py-3 rounded-lg border-2 border-stone-200 focus:border-green-500 focus:ring-0 text-lg outline-none transition-all duration-300 focus:shadow-lg"
                         placeholder="Other amount"
                       />
                     </div>
@@ -119,43 +127,43 @@ export const DonatePage: React.FC = () => {
 
                   <button
                     onClick={() => setStep('details')}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5"
+                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02] hover:shadow-green-500/50"
                   >
                     Continue
                   </button>
                 </>
               ) : (
                 <form onSubmit={handleDonate}>
-                  <div className="flex items-center gap-2 mb-6 text-stone-500 cursor-pointer hover:text-green-600" onClick={() => setStep('amount')}>
+                  <div className="flex items-center gap-2 mb-6 text-stone-500 cursor-pointer hover:text-green-600 transition-colors" onClick={() => setStep('amount')}>
                     <span>&larr; Back to amount</span>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-stone-900 mb-6">Payment Details</h3>
+                  <h3 className="text-xl font-bold text-stone-900 mb-6 animate-slide-up">Payment Details</h3>
                   
                   <div className="space-y-4 mb-8">
-                    <div>
+                    <div className="animate-slide-up delay-100">
                       <label className="block text-sm font-medium text-stone-700 mb-1">Full Name</label>
-                      <input required type="text" className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none" placeholder="John Doe" />
+                      <input required type="text" className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition-shadow focus:shadow-md" placeholder="John Doe" />
                     </div>
-                    <div>
+                    <div className="animate-slide-up delay-200">
                       <label className="block text-sm font-medium text-stone-700 mb-1">Email Address</label>
-                      <input required type="email" className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none" placeholder="john@example.com" />
+                      <input required type="email" className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition-shadow focus:shadow-md" placeholder="john@example.com" />
                     </div>
-                    <div>
+                    <div className="animate-slide-up delay-300">
                       <label className="block text-sm font-medium text-stone-700 mb-1">Card Details</label>
                       <div className="relative">
-                        <input required type="text" className="w-full pl-10 px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none" placeholder="0000 0000 0000 0000" />
+                        <input required type="text" className="w-full pl-10 px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition-shadow focus:shadow-md" placeholder="0000 0000 0000 0000" />
                         <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" size={18} />
                       </div>
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 animate-slide-up delay-500">
                        <div className="w-1/2">
                           <label className="block text-sm font-medium text-stone-700 mb-1">Expiry</label>
-                          <input required type="text" className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none" placeholder="MM/YY" />
+                          <input required type="text" className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition-shadow focus:shadow-md" placeholder="MM/YY" />
                        </div>
                        <div className="w-1/2">
                           <label className="block text-sm font-medium text-stone-700 mb-1">CVC</label>
-                          <input required type="text" className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none" placeholder="123" />
+                          <input required type="text" className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition-shadow focus:shadow-md" placeholder="123" />
                        </div>
                     </div>
                   </div>
@@ -163,7 +171,7 @@ export const DonatePage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-bold py-4 rounded-xl shadow-lg flex justify-center items-center gap-2"
+                    className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-bold py-4 rounded-xl shadow-lg flex justify-center items-center gap-2 transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02]"
                   >
                     {isLoading ? 'Processing...' : `Pay £${amount} ${isMonthly ? '/ month' : ''}`}
                     {!isLoading && <Lock size={18} />}
@@ -178,8 +186,8 @@ export const DonatePage: React.FC = () => {
         </div>
 
         {/* Sidebar Info */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-green-900 text-white p-6 rounded-2xl shadow-lg">
+        <div className="lg:col-span-1 space-y-6 animate-slide-up delay-300">
+          <div className="bg-green-900 text-white p-6 rounded-2xl shadow-lg transform transition-transform hover:scale-[1.02]">
             <h3 className="text-xl font-bold font-serif mb-4">Why Donate?</h3>
             <ul className="space-y-4 text-sm text-green-100">
               <li className="flex gap-3">
@@ -197,7 +205,7 @@ export const DonatePage: React.FC = () => {
             </ul>
           </div>
           
-          <div className="bg-white p-6 rounded-2xl shadow-lg border border-stone-100">
+          <div className="bg-white p-6 rounded-2xl shadow-lg border border-stone-100 transform transition-transform hover:scale-[1.02]">
             <h4 className="font-bold text-stone-900 mb-2">Other Ways to Help</h4>
             <p className="text-sm text-stone-600 mb-4">
               Can't donate money? We always need old gardening tools, gloves, or simply your time!

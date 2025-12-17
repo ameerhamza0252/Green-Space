@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page } from '../types';
-import { Leaf, Heart, Users, Menu, X } from 'lucide-react';
+import { Leaf, Heart, Users, Menu, X, Image } from 'lucide-react';
 
 interface HeaderProps {
   currentPage: Page;
@@ -13,6 +13,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) =
   const navItems = [
     { page: Page.HOME, label: 'Home', icon: Leaf },
     { page: Page.ABOUT, label: 'About Us', icon: Users },
+    { page: Page.GALLERY, label: 'Gallery', icon: Image },
     { page: Page.VOLUNTEER, label: 'Volunteer', icon: Users },
   ];
 
@@ -22,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) =
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-green-100 shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-green-100 shadow-sm transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -30,10 +31,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) =
             className="flex items-center cursor-pointer group" 
             onClick={() => handleNavClick(Page.HOME)}
           >
-            <div className="bg-green-600 text-white p-2 rounded-lg group-hover:bg-green-700 transition-colors">
+            <div className="bg-green-600 text-white p-2 rounded-lg group-hover:bg-green-700 transition-all duration-300 transform group-hover:rotate-12 group-hover:scale-110">
               <Leaf size={24} />
             </div>
-            <span className="ml-3 text-xl font-serif font-bold text-green-900 tracking-tight">
+            <span className="ml-3 text-xl font-serif font-bold text-green-900 tracking-tight group-hover:text-green-700 transition-colors">
               Green Space <span className="text-green-600 font-sans text-sm font-normal">Stockport</span>
             </span>
           </div>
@@ -44,9 +45,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) =
               <button
                 key={item.page}
                 onClick={() => handleNavClick(item.page)}
-                className={`text-sm font-medium transition-colors duration-200 ${
+                className={`text-sm font-medium transition-colors duration-300 hover-underline-animation ${
                   currentPage === item.page 
-                    ? 'text-green-700 border-b-2 border-green-600' 
+                    ? 'text-green-700 font-bold' 
                     : 'text-stone-600 hover:text-green-600'
                 }`}
               >
@@ -55,9 +56,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) =
             ))}
             <button
               onClick={() => handleNavClick(Page.DONATE)}
-              className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-md hover:shadow-lg flex items-center gap-2 transform hover:-translate-y-0.5"
+              className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center gap-2 transform hover:-translate-y-0.5 hover:scale-105 active:scale-95"
             >
-              <Heart size={16} className="fill-current" />
+              <Heart size={16} className="fill-current animate-pulse" />
               Donate Now
             </button>
           </nav>
@@ -66,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) =
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-stone-600 hover:text-green-600 p-2 focus:outline-none"
+              className="text-stone-600 hover:text-green-600 p-2 focus:outline-none transition-transform duration-300 active:scale-90"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -76,16 +77,16 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) =
 
       {/* Mobile Nav */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-stone-100 animate-fadeIn">
+        <div className="md:hidden bg-white border-t border-stone-100 animate-slide-up origin-top">
           <div className="px-4 pt-2 pb-6 space-y-2">
             {navItems.map((item) => (
               <button
                 key={item.page}
                 onClick={() => handleNavClick(item.page)}
-                className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium ${
+                className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium transition-colors ${
                   currentPage === item.page
                     ? 'bg-green-50 text-green-700'
-                    : 'text-stone-600 hover:bg-stone-50'
+                    : 'text-stone-600 hover:bg-stone-50 hover:text-green-600'
                 }`}
               >
                 {item.label}
@@ -93,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) =
             ))}
             <button
               onClick={() => handleNavClick(Page.DONATE)}
-              className="w-full mt-4 bg-green-600 text-white px-3 py-3 rounded-md text-base font-medium flex justify-center items-center gap-2"
+              className="w-full mt-4 bg-green-600 active:bg-green-800 text-white px-3 py-3 rounded-md text-base font-medium flex justify-center items-center gap-2 shadow-md"
             >
               <Heart size={18} /> Donate to the Cause
             </button>

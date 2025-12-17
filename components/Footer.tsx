@@ -29,6 +29,7 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             <ul className="space-y-2 text-sm">
               <li><button onClick={() => setCurrentPage(Page.HOME)} className="hover:text-green-400 transition-colors">Home</button></li>
               <li><button onClick={() => setCurrentPage(Page.ABOUT)} className="hover:text-green-400 transition-colors">About Us</button></li>
+              <li><button onClick={() => setCurrentPage(Page.GALLERY)} className="hover:text-green-400 transition-colors">Gallery</button></li>
               <li><button onClick={() => setCurrentPage(Page.VOLUNTEER)} className="hover:text-green-400 transition-colors">Volunteer</button></li>
               <li><button onClick={() => setCurrentPage(Page.DONATE)} className="hover:text-green-400 transition-colors">Donate</button></li>
             </ul>

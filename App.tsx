@@ -6,6 +6,7 @@ import { HomePage } from './components/HomePage';
 import { DonatePage } from './components/DonatePage';
 import { VolunteerPage } from './components/VolunteerPage';
 import { AboutPage } from './components/AboutPage';
+import { GalleryPage } from './components/GalleryPage';
 import { ChatWidget } from './components/ChatWidget';
 
 const App: React.FC = () => {
@@ -21,6 +22,8 @@ const App: React.FC = () => {
         return <VolunteerPage />;
       case Page.ABOUT:
         return <AboutPage />;
+      case Page.GALLERY:
+        return <GalleryPage />;
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
     }

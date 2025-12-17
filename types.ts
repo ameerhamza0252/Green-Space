@@ -2,7 +2,8 @@ export enum Page {
   HOME = 'HOME',
   DONATE = 'DONATE',
   VOLUNTEER = 'VOLUNTEER',
-  ABOUT = 'ABOUT'
+  ABOUT = 'ABOUT',
+  GALLERY = 'GALLERY'
 }
 
 export interface DonationOption {

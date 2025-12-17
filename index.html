@@ -31,6 +31,10 @@
               stone: {
                 850: '#1c1917',
               }
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.8s ease-out forwards',
+              'slide-up': 'slideUp 0.8s ease-out forwards',
             }
           }
         }
@@ -51,13 +55,54 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #555;
       }
-      .fade-in {
-        animation: fadeIn 0.5s ease-in-out;
+      
+      .animate-fade-in {
+        animation: fadeIn 0.8s ease-out forwards;
+        opacity: 0;
       }
+      
+      .animate-slide-up {
+        animation: slideUp 0.8s ease-out forwards;
+        opacity: 0;
+      }
+
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
       }
+
+      /* Hover Underline Animation */
+      .hover-underline-animation {
+        display: inline-block;
+        position: relative;
+      }
+      .hover-underline-animation::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: #16a34a; /* green-600 */
+        transform-origin: bottom right;
+        transition: transform 0.3s ease-out;
+      }
+      .hover-underline-animation:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+      /* Animation Delays */
+      .delay-100 { animation-delay: 100ms; }
+      .delay-200 { animation-delay: 200ms; }
+      .delay-300 { animation-delay: 300ms; }
+      .delay-500 { animation-delay: 500ms; }
     </style>
   <script type="importmap">
 {
