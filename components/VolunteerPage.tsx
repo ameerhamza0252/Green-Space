@@ -33,6 +33,7 @@ export const VolunteerPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fade-in">
+      
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-serif font-bold text-stone-900 mb-6 animate-slide-up">Join Our Green Army</h2>
         <p className="text-xl text-stone-600 max-w-3xl mx-auto animate-slide-up delay-100">
@@ -40,36 +41,66 @@ export const VolunteerPage: React.FC = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 animate-slide-up delay-200">
-        <div className="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-green-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:border-green-600 cursor-default group">
-          <div className="bg-green-100 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-green-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
-            <Shovel size={28} />
-          </div>
-          <h3 className="text-xl font-bold mb-3 group-hover:text-green-700 transition-colors">Green Keeper</h3>
-          <p className="text-stone-600">
-            Get your hands dirty! Help with litter picking, planting trees, and clearing pathways. No experience needed.
-          </p>
-        </div>
-        <div className="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-yellow-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:border-yellow-600 cursor-default group">
-          <div className="bg-yellow-100 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-yellow-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
-            <Clipboard size={28} />
-          </div>
-          <h3 className="text-xl font-bold mb-3 group-hover:text-yellow-700 transition-colors">Event Marshall</h3>
-          <p className="text-stone-600">
-            Help organize our cleanup days, sign in volunteers, and ensure health & safety guidelines are followed.
-          </p>
-        </div>
-        <div className="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-blue-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:border-blue-600 cursor-default group">
-          <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-blue-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
-            <Coffee size={28} />
-          </div>
-          <h3 className="text-xl font-bold mb-3 group-hover:text-blue-700 transition-colors">Community Host</h3>
-          <p className="text-stone-600">
-            Prepare refreshments, chat with public, and help run our educational stalls at local fairs.
-          </p>
-        </div>
+     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 animate-slide-up delay-200">
+  {/* Green Keeper */}
+  <div className="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+    <div className="flex items-center gap-3 mb-3">
+      <div className="bg-green-100 w-10 h-10 rounded-lg flex items-center justify-center text-green-600">
+        <Shovel size={20} />
       </div>
+      <h3 className="text-base font-semibold text-stone-900">
+        Green Keeper
+      </h3>
+    </div>
+    <p className="text-sm text-stone-600 leading-relaxed">
+      Help with litter picking, planting trees, and clearing pathways. No experience needed.
+    </p>
+  </div>
 
+  {/* Event Marshall */}
+  <div className="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+    <div className="flex items-center gap-3 mb-3">
+      <div className="bg-yellow-100 w-10 h-10 rounded-lg flex items-center justify-center text-yellow-600">
+        <Clipboard size={20} />
+      </div>
+      <h3 className="text-base font-semibold text-stone-900">
+        Event Marshall
+      </h3>
+    </div>
+    <p className="text-sm text-stone-600 leading-relaxed">
+      Help organise cleanup days, sign in volunteers, and ensure health & safety guidelines.
+    </p>
+  </div>
+
+  {/* Community Host */}
+  <div className="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+    <div className="flex items-center gap-3 mb-3">
+      <div className="bg-blue-100 w-10 h-10 rounded-lg flex items-center justify-center text-blue-600">
+        <Coffee size={20} />
+      </div>
+      <h3 className="text-base font-semibold text-stone-900">
+        Community Host
+      </h3>
+    </div>
+    <p className="text-sm text-stone-600 leading-relaxed">
+      Prepare refreshments, chat with the public, and help run educational stalls.
+    </p>
+  </div>
+   {/* Donate Material */}
+  <div className="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+    <div className="flex items-center gap-3 mb-3">
+      <div className="bg-green-100 w-10 h-10 rounded-lg flex items-center justify-center text-green-600">
+        <Coffee size={20} />
+      </div>
+      <h3 className="text-base font-semibold text-stone-900">
+        Donate Materials
+      </h3>
+    </div>
+    <p className="text-sm text-stone-600 leading-relaxed">
+      Donate gardening tools, gloves, plants, or materials to support our initiatives.
+    </p>
+  </div>
+</div>
       <div className="bg-stone-50 rounded-3xl p-8 md:p-12 shadow-inner animate-slide-up delay-300">
         <div className="max-w-3xl mx-auto">
           <h3 className="text-2xl font-serif font-bold text-stone-900 mb-8 text-center">Volunteer Application Form</h3>
@@ -105,12 +136,17 @@ export const VolunteerPage: React.FC = () => {
                   <input type="checkbox" className="w-4 h-4 text-green-600 rounded focus:ring-green-500" />
                   <span>Community Host</span>
                 </label>
+
+                 <label className="flex items-center gap-2 cursor-pointer bg-white px-4 py-2 rounded-lg border border-stone-200 hover:border-green-400 transition-all hover:shadow-md">
+                  <input type="checkbox" className="w-4 h-4 text-green-600 rounded focus:ring-green-500" />
+                  <span>Donate Material</span>
+                </label>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-stone-700 mb-2">Why do you want to join?</label>
-              <textarea rows={4} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-green-500 outline-none transition-shadow focus:shadow-md" placeholder="Tell us a bit about yourself..."></textarea>
+              <label className="block text-sm font-medium text-stone-700 mb-2">How would you like to contribute?</label>
+              <textarea rows={4} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-green-500 outline-none transition-shadow focus:shadow-md" placeholder="Tell us about yourself and how can you contribute to our cause.  "></textarea>
             </div>
 
             <button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-lg text-lg">

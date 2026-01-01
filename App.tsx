@@ -17,7 +17,7 @@ const App: React.FC = () => {
       case Page.HOME:
         return <HomePage setCurrentPage={setCurrentPage} />;
       case Page.DONATE:
-        return <DonatePage />;
+        return <DonatePage setCurrentPage={setCurrentPage}/>;
       case Page.VOLUNTEER:
         return <VolunteerPage />;
       case Page.ABOUT:

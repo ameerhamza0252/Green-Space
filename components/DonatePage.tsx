@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { CreditCard, CheckCircle, Lock, Heart, Calendar } from 'lucide-react';
 import { DonationOption } from '../types';
+import { Page } from '../types';
 
-export const DonatePage: React.FC = () => {
+interface DonationPageProps {
+  currentPage: Page;
+  setCurrentPage: (page: Page) => void;
+}
+
+export const DonatePage: React.FC<DonationPageProps> = ({ setCurrentPage }) => {
   const [amount, setAmount] = useState<number>(20);
   const [isMonthly, setIsMonthly] = useState(false);
   const [customAmount, setCustomAmount] = useState('');
@@ -16,10 +22,26 @@ export const DonatePage: React.FC = () => {
     { amount: 100, label: '£100', description: 'Funds a school education workshop.' },
   ];
 
-  const handleCustomAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomAmount(e.target.value);
-    setAmount(Number(e.target.value));
-  };
+const handleCustomAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const value = e.target.value;
+
+  // Allow clearing the field
+  if (value === '') {
+    setCustomAmount('');
+    return;
+  }
+
+  const numericValue = Number(value);
+
+  // Enforce £1–£10,000
+  if (numericValue < 1 || numericValue > 10000) {
+    return;
+  }
+
+  setCustomAmount(value);
+  setAmount(numericValue);
+};
+
 
   const handleDonate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,23 +136,23 @@ export const DonatePage: React.FC = () => {
                     <label className="block text-sm font-medium text-stone-700 mb-2">Or enter custom amount</label>
                     <div className="relative group">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500 text-lg transition-colors group-focus-within:text-green-600">£</span>
-                      <input
-                        type="number"
-                        min="1"
+                      <input 
+                      type="number"
+                        max={10000}
+                        step={1}
                         value={customAmount}
                         onChange={handleCustomAmount}
                         className="w-full pl-10 pr-4 py-3 rounded-lg border-2 border-stone-200 focus:border-green-500 focus:ring-0 text-lg outline-none transition-all duration-300 focus:shadow-lg"
-                        placeholder="Other amount"
-                      />
+                        placeholder="Other amount"/>
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => setStep('details')}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02] hover:shadow-green-500/50"
-                  >
-                    Continue
-                  </button>
+                 <button 
+                 onClick={() => setStep('details')} disabled={amount < 5 || amount > 10000} 
+                 className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-200 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl shadow-lg transition-all duration-300">
+                 Continue
+                 </button>
+
                 </>
               ) : (
                 <form onSubmit={handleDonate}>
@@ -210,7 +232,7 @@ export const DonatePage: React.FC = () => {
             <p className="text-sm text-stone-600 mb-4">
               Can't donate money? We always need old gardening tools, gloves, or simply your time!
             </p>
-            <a href="#" className="text-green-600 text-sm font-semibold hover:underline">Contact for material donations &rarr;</a>
+            <button onClick={() => setCurrentPage(Page.VOLUNTEER)} className="text-green-600 text-sm font-semibold hover:underline">Contact for material donations </button>
           </div>
         </div>
       </div>
