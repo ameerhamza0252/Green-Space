@@ -8,12 +8,15 @@ interface DonationPageProps {
   setCurrentPage: (page: Page) => void;
 }
 
-export const DonatePage: React.FC<DonationPageProps> = ({ setCurrentPage }) => {
+  export const DonatePage: React.FC<DonationPageProps> = ({ setCurrentPage }) => {
   const [amount, setAmount] = useState<number>(20);
   const [isMonthly, setIsMonthly] = useState(false);
   const [customAmount, setCustomAmount] = useState('');
   const [step, setStep] = useState<'amount' | 'details' | 'success'>('amount');
   const [isLoading, setIsLoading] = useState(false);
+
+  const isInvalid = amount < 5 || amount > 10000;
+
 
   const predefinedAmounts: DonationOption[] = [
     { amount: 10, label: '£10', description: 'Buys a sturdy pair of gloves for a volunteer.' },
@@ -133,17 +136,20 @@ const handleCustomAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
                   </div>
 
                   <div className="mb-8">
-                    <label className="block text-sm font-medium text-stone-700 mb-2">Or enter custom amount</label>
+                    <label className="block text-sm font-medium text-stone-700 mb-2">Custom Amount (Min £5 - Max £10,000)</label>
                     <div className="relative group">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500 text-lg transition-colors group-focus-within:text-green-600">£</span>
                       <input 
-                      type="number"
-                        max={10000}
-                        step={1}
+                        type="number"
                         value={customAmount}
                         onChange={handleCustomAmount}
-                        className="w-full pl-10 pr-4 py-3 rounded-lg border-2 border-stone-200 focus:border-green-500 focus:ring-0 text-lg outline-none transition-all duration-300 focus:shadow-lg"
-                        placeholder="Other amount"/>
+                        className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 text-lg outline-none transition-all duration-300 focus:shadow-lg ${
+                          isInvalid && customAmount 
+                            ? 'border-red-500 focus:border-red-600 bg-red-50' 
+                            : 'border-stone-200 focus:border-green-500'
+                        }`}
+                        placeholder="Min £5 - Max £10,000"
+                      />
                     </div>
                   </div>
 
@@ -220,10 +226,6 @@ const handleCustomAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
                 <div className="bg-green-800 p-1 rounded-full h-fit mt-0.5"><CheckCircle size={14} /></div>
                 <span>Every £1 donated generates £4 in social value for Stockport.</span>
               </li>
-              <li className="flex gap-3">
-                <div className="bg-green-800 p-1 rounded-full h-fit mt-0.5"><CheckCircle size={14} /></div>
-                <span>Taxpayers can add 25% via Gift Aid at no extra cost.</span>
-              </li>
             </ul>
           </div>
           
@@ -232,7 +234,7 @@ const handleCustomAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
             <p className="text-sm text-stone-600 mb-4">
               Can't donate money? We always need old gardening tools, gloves, or simply your time!
             </p>
-            <button onClick={() => setCurrentPage(Page.VOLUNTEER)} className="text-green-600 text-sm font-semibold hover:underline">Contact for material donations </button>
+            <button onClick={() => setCurrentPage(Page.VOLUNTEER)} className="text-green-600 text-sm font-semibold hover:underline">Contact Now! </button>
           </div>
         </div>
       </div>
